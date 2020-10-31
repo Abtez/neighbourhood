@@ -3,7 +3,6 @@
     line-height: 40px;
     font-size: 22px;
     font-weight: bold;
-    /* box-shadow: 12px 0 15px -4px rgba(31, 73, 125, 0.8), -12px 0 8px -4px rgba(31, 73, 125, 0.8); */
 }
 
 .nav a:hover{
@@ -12,5 +11,14 @@
 
 .nav{
     box-shadow: 12px 0 15px -4px rgba(124, 252, 0, 0.3), -12px 0 8px -4px rgba(124, 252, 0, 0.3);
+}
 
+.card{
+    width: 450px;
+}
+
+.avatar img{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
 }
