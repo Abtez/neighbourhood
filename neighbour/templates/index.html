@@ -3,12 +3,43 @@
 {% load cloudinary %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/styles.css' %}">  
+<link rel="stylesheet" href="{% static 'css/index.css' %}">  
 <link rel="stylesheet" href="{% static 'js/jquery.easypiechart.js' %}">  
 {% endblock  %}
   
 
 {% block content %} 
-<h1>HELLO</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+        <!-- Grid column -->
+
+            <nav class="nav fixed flex-column lighten-4 py-4 font-weight-bold">
+            <a style="color: #4A7023;" class="nav-link active"><h3><span style="text-decoration: underline;">CATEGORIES</span></h3></a>
+            <a class="nav-link" href="#"><i class="far fa-newspaper">   All News</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-trash-restore-alt">   Lost and Found</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-medkit">   Health Emergency</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-fire-alt">   Fire Breakouts</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-exclamation-circle">   Crimes and Safety</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-skull-crossbones">   Deaths and Burials</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-calendar-day">   Events</i></a>
+            <a class="nav-link" href="#"><i class="fas fa-file">   Documents</i></a>
+            </nav>
+
+        <!-- Grid column -->
+         </div>
+
+        <div class="col-md-8">
+
+            <h2 class="mt-3" style="color: black; font-weight:bold;"><i class="fas fa-map-marker-alt">   Nairobi, Langata</i></h2>
+
+        </div>
+
+        <div class="col-md-2">
+
+        </div>
+
+    </div>
+</div>
 {% endblock %} 
 
