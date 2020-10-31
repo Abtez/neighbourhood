@@ -5,20 +5,26 @@
     font-weight: bold;
 }
 
+.left{
+    box-shadow: 12px 5px 15px -4px rgba(124, 252, 0, 0.3), -12px 5px 8px -4px rgba(124, 252, 0, 0.3);
+}
+
 .nav a:hover{
     color: #76EE00;
 }
 
-.nav{
-    box-shadow: 12px 0 15px -4px rgba(124, 252, 0, 0.3), -12px 0 8px -4px rgba(124, 252, 0, 0.3);
-}
-
 .card{
-    width: 450px;
+    width: 600px;
 }
 
 .avatar img{
     width: 60px;
     height: 60px;
     object-fit: cover;
+}
+
+.card-header{
+    display: flex;
+    flex-direction: row;
+    padding: 7px;
 }
