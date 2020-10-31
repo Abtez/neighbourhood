@@ -1,0 +1,26 @@
+{% load static %}
+
+{% block styles %}
+<link href="{% static 'css/nav.css' %}" rel="stylesheet">
+{% endblock  %}
+
+<header>
+<img class="logo img-fluid" height="100" src="/static/img/houses.png" alt="logo">
+<h1 style="color: black;font-weight:bold;">NEIGHBOURFY</h1>
+<nav class="main-nav">
+    <ul class="nav_links">
+        <li><a href=""><i class="fas fa-torii-gate">   Neighbourhoods</i></a></li>
+        <li><a href=""><i class="fas fa-briefcase">   Businesses</i></a></li>
+        <li><a href=""><i class="fas fa-sign-in-alt">   Log In</i></a></li>
+        <li><a href=""><i class="fas fa-plus">   Register</i></a></li>
+        <li><a href=""><i class="fas fa-sign-out-alt">   Log Out</i></a></li>
+        
+        
+
+    </ul>
+</nav>
+<div class="icons">
+    <a href="/" class="cta"><i class="fas fa-home fa-3x" style="color: white;"></i></a>
+    <a href=""><i class="far fa-user fa-3x" style="color: black;"></i></a>
+</div>
+</header>
