@@ -5,3 +5,6 @@ def index(request):
 
 def profile(request):
     return render(request, 'profile/profile.html')
+
+def business(request):
+    return render(request, 'business.html')

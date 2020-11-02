@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns=[
     path('', views.index, name='home'),
     path('profile', views.profile, name='profile'),
+    path('business_list', views.business, name='business'),
 ]
 
 if settings.DEBUG:
