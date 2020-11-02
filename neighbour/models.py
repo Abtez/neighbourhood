@@ -37,30 +37,14 @@ class Neighbourhood(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    job_title = models.CharField(max_length=150, null=True, blank=True)
-    location = models.CharField(max_length=50, null=True, blank=True)
     bio = models.TextField(max_length=120, null=True)
     avatar = CloudinaryField('image')
-    city = models.CharField(max_length=150)
-    Country = models.CharField(max_length=150)
-    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    city = models.CharField(max_length=150, null=True)
+    Country = models.CharField(max_length=150, null=True)
+    # neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.user.username
-    
-    def save_image(self):
-        self.save()
-        
-    def delete_image(self):
-        self.delete()
-        
-    def get_projects(self, username):
-        user = get_object_or_404(User, username=username)
-        return Project.objects.filter(user=user).count()
-    
-    @classmethod
-    def update(cls, id, value):
-        cls.objects.filter(id=id).update(avatar=value)
         
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
@@ -70,7 +54,7 @@ def update_user_profile(sender, instance, created, **kwargs):
     
 class Business(models.Model):
     name = models.CharField(max_length=150, null=True, blank=True)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='user')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='business_user')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -94,3 +78,14 @@ class Business(models.Model):
     def search_business(cls,search_term):
         job = Business.objects.filter(name__icontains=search_term)
         return job
+    
+class Post(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    image = CloudinaryField('image')
+    title = models.CharField(max_length=120, null=True)
+    content = models.TextField(max_length=1000, verbose_name='project Description', null=True)
+    date = models.DateTimeField(auto_now_add=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_profile')
+    
+    def __str__(self):
+        return self.title
