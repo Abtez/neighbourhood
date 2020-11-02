@@ -40,7 +40,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=120, null=True)
     avatar = CloudinaryField('image')
     city = models.CharField(max_length=150, null=True)
-    Country = models.CharField(max_length=150, null=True)
+    location = models.CharField(max_length=150, null=True)
     # neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     
     def __str__(self):
