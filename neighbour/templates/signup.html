@@ -11,7 +11,20 @@
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+          {% csrf_token %}
+            {% for field in form_n %}
+              <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% if field.help_text %}
+                  <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+              </p>
+            {% endfor %}
+            
             {% for field in form %}
               <p>
                 {{ field.label_tag }}<br>
@@ -25,19 +38,6 @@
               </p>
             {% endfor %}
 
-            {% csrf_token %}
-            {% for field in form_n %}
-              <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                  <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                  <p style="color: red">{{ error }}</p>
-                {% endfor %}
-              </p>
-            {% endfor %}
             <button class="btn btn-outline-success" type="submit">Sign up</button>
           </form>
     </div>

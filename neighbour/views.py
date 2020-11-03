@@ -20,22 +20,23 @@ def business(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-        form_n = NeighbourhoodForm(request.POST, request.FILES)
+        form = SignUpForm(request.POST, request.FILES)
+        form_n = NeighbourhoodForm(request.POST)
         if form.is_valid() and form_n.is_valid():
-            neighb = form_n.save()               
+            hood = form_n.save()               
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
-            user.profile.neighbourhood = neighb            
             user.profile.bio = form.cleaned_data.get('bio')           
-            user.profile.avatar = form.cleaned_data.get('avatar')           
+            user.profile.avatar = form.cleaned_data.get('avatar')
+            user.profile.neighbourhood = hood
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('profile')
+            return redirect('/')
     else:
-        return False
+        form = SignUpForm()
+        form_n = NeighbourhoodForm()
     return render(request, 'signup.html', {'form': SignUpForm, 'form_n': NeighbourhoodForm})
 
 def signin(request):

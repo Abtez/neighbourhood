@@ -9,8 +9,18 @@ from django.shortcuts import get_object_or_404
 import uuid
 
 class Neighbourhood(models.Model):
-    neighbourhood_name = models.CharField(max_length=120)
-    location = models.CharField(max_length=120)
+    CHOICES = (
+        ('1', 'Langata'),
+        ('2', 'Dagoretti'),
+        ('3', 'Embakasi'),
+        ('4', 'CBD'),
+        ('5', 'Kasarani'),
+        ('6', 'Kibra'),
+        ('7', 'Westland'),
+        ('8', 'Parkland'),
+    )
+    neighbourhood_name = models.CharField(max_length=120, choices=CHOICES)
+    location = models.CharField(max_length=120, default='Nairobi')
     population = models.AutoField(primary_key=True)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_name', default=1)
     
@@ -54,6 +64,7 @@ class Business(models.Model):
     name = models.CharField(max_length=150, null=True, blank=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='business_user')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    business_email = models.EmailField(max_length=254)
     
     def __str__(self):
         return self.name
