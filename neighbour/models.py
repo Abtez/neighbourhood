@@ -9,13 +9,13 @@ from django.shortcuts import get_object_or_404
 import uuid
 
 class Neighbourhood(models.Model):
-    name = models.CharField(max_length=150, null=True, blank=True)
-    location = models.CharField(max_length=150, null=True, blank=True)
-    population = models.IntegerField()
-    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_name')
+    neighbourhood_name = models.CharField(max_length=120)
+    location = models.CharField(max_length=120)
+    population = models.AutoField(primary_key=True)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_name', default=1)
     
     def __str__(self):
-        return self.name
+        return self.neighbourhood_name
     
     def save_image(self):
         self.save()
@@ -37,11 +37,9 @@ class Neighbourhood(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    bio = models.TextField(max_length=120, null=True)
+    bio = models.TextField(max_length=120)
     avatar = CloudinaryField('image')
-    city = models.CharField(max_length=150, null=True)
-    location = models.CharField(max_length=150, null=True)
-    # neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.user.username

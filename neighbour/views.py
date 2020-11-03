@@ -21,29 +21,32 @@ def business(request):
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
+        form_n = NeighbourhoodForm(request.POST, request.FILES)
+        if form.is_valid() and form_n.is_valid():
+            neighb = form_n.save()               
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
-            user.profile.city = form.cleaned_data.get('city')
-            user.profile.location = form.cleaned_data.get('location')
+            user.profile.neighbourhood = neighb            
+            user.profile.bio = form.cleaned_data.get('bio')           
+            user.profile.avatar = form.cleaned_data.get('avatar')           
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             return redirect('profile')
     else:
-        form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        return False
+    return render(request, 'signup.html', {'form': SignUpForm, 'form_n': NeighbourhoodForm})
 
 def signin(request):
-    username = request.POST['username']
-    password = request.POST['password']
+    username = request.POST.get('username')
+    password = request.POST.get('password')
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
         return redirect(request,'/')
     
-    return render(request, '/django_registration/login.html')
+    return render(request, 'registration/login.html')
 
 @login_required
 def logout(request):

@@ -2,17 +2,23 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
+from django.shortcuts import get_object_or_404
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
     email = forms.EmailField(max_length=254, required=True)
-    city = forms.CharField(max_length=200, required=True)
-    location = forms.CharField(max_length=200, required=True)
+    bio = forms.CharField(widget=forms.Textarea)
+    avatar = forms.ImageField(required=True)
 
     class Meta:
         model = User
-        fields = ('city','location','username', 'first_name', 'last_name', 'email', 'password1', 'password2') 
+        fields = ('avatar', 'bio', 'username', 'first_name', 'last_name', 'email', 'password1', 'password2') 
+        
+class NeighbourhoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighbourhood
+        exclude = ['admin']
         
 class EditProfileForm(forms.ModelForm):
     class Meta:
