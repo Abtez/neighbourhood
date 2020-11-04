@@ -8,18 +8,8 @@ from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 import uuid
 
-class Neighbourhood(models.Model):
-    CHOICES = (
-        ('Langata', 'Langata'),
-        ('Dagoretti', 'Dagoretti'),
-        ('Embakasi', 'Embakasi'),
-        ('CBD', 'CBD'),
-        ('Kasarani', 'Kasarani'),
-        ('Kibra', 'Kibra'),
-        ('Westland', 'Westland'),
-        ('Parkland', 'Parkland'),
-    )
-    neighbourhood_name = models.CharField(max_length=120, choices=CHOICES)
+class Neighbourhood(models.Model):    
+    neighbourhood_name = models.CharField(max_length=120)
     location = models.CharField(max_length=120, default='Nairobi')
     population = models.IntegerField(default=0)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_name', default=1)

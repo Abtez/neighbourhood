@@ -11,19 +11,36 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.urls import reverse
 
+@login_required
 def home(request):
-    user = Profile.objects.get(user= request.user)
-    return render(request, 'home.html', {'user':user})
+    return render(request, 'home.html')
 
 @login_required
-def index(request, name):
-    hood = get_object_or_404(Neighbourhood, neighbourhood_name=name)
-    post = Post.objects.all().filter(neighbourhood=hood).order_by('-date')
+def index(request, id):
+    
+    hood = Neighbourhood.objects.get(id=id)
+    post = Post.objects.filter(neighbourhood=hood).order_by('-date')
     
     return render(request, 'index.html', {'hood':hood, 'post':post})
 
-def profile(request):
-    return render(request, 'profile/profile.html')
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    profile = Profile.objects.get(user=user)
+    form = EditProfileForm(instance=profile)
+    
+    if request.method == "POST":
+        form = EditProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.user = user
+            data.save()
+            return HttpResponseRedirect(reverse('profile', args=[username]))
+        else:
+            form = EditProfileForm(instance=profile)
+    
+    post_count = Post.objects.filter(profile=profile).count()
+    
+    return render(request, 'profile/profile.html', {'profile':profile, 'post_count':post_count})
 
 def business(request):
     hood_user = request.user
