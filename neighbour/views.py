@@ -22,12 +22,33 @@ def index(request):
 def profile(request):
     return render(request, 'profile/profile.html')
 
-def business(request, hood_id):
+def business(request):
     hood_user = request.user
     user = hood_user.profile.neighbourhood.pk
-    hood = get_object_or_404(Neighbourhood, pk=hood_id)
+    hood = get_object_or_404(Neighbourhood, pk=user)
     jobs = Business.objects.filter(neighbourhood=hood)
     return render(request, 'business.html', {'hood':hood, 'jobs':jobs})
+
+@login_required
+def post_news(request):
+    userX = request.user
+    user = Profile.objects.get(user=request.user)
+    hood = Neighbourhood.objects.get(profile=user)
+    
+    if request.method == "POST":
+        
+        form = PostForm(request.POST, request.FILES)
+        
+        if form.is_valid():
+            data = form.save(commit=False)
+            data.profile = user
+            data.neighbourhood = hood
+            data.save()
+            return redirect('/')
+        else:
+            return False
+    
+    return render(request, 'post.html', {'form':PostForm})
 
 def signup(request):
     if request.method == 'POST':

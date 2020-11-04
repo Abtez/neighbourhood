@@ -28,7 +28,7 @@ class EditProfileForm(forms.ModelForm):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['user', 'profile', 'like', 'screenshots']
+        exclude = ['profile', 'neighbourhood']
 
 # class CommentForm(forms.ModelForm):
 #     class Meta:
