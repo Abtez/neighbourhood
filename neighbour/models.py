@@ -90,11 +90,22 @@ class Business(models.Model):
     
 class Post(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    CHOICES = (
+        ('1', 'Lost and Found'),
+        ('2', 'Health Emergency'),
+        ('3', 'Fire Breakouts'),
+        ('4', 'Crimes and Safety'),
+        ('5', 'Death'),
+        ('6', 'Event'),
+        ('7', 'Document'),
+        ('8', 'Job'),
+    )
+    category = models.CharField(max_length=120, choices=CHOICES)
     image = CloudinaryField('image')
-    title = models.CharField(max_length=120, null=True)
-    content = models.TextField(max_length=1000, verbose_name='project Description', null=True)
+    title = models.CharField(max_length=120)
+    content = models.TextField(max_length=1000, verbose_name='Description')
     date = models.DateTimeField(auto_now_add=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_profile')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='your_profile')
     
     def __str__(self):
         return self.title

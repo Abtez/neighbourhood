@@ -24,24 +24,26 @@
       <!-- Empty div -->
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        {% if form.errors %}
-          <p> Password or Username is incorrect </p>
-        {% endif %}
-        <div class="panel panel-default">
-  
-          <div class="panel-heading">
-            <h3 class="text-center">Sign In</h3>
-          </div>
-          <div class="panel-body">
-  
+          <h3 class="text-center font-weight-bold">Sign In</h3>
+          
             <form  action="/accounts/login/" method="post">
+
               {% csrf_token %}
-              {{ backend_form }}
-              {{ form.as_p }}
-  
-              <div class="form-group">
+              {% for field in form %}
+                <p>
+                  {{ field.label_tag }}<br>
+                  {{ field }}
+                  {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                  {% endif %}
+                  {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                  {% endfor %}
+                </p>
+              {% endfor %}
+              
                 <input type="submit" class="btn btn-primary btn-sm" value="Login">
-              </div>
+            
   
               <input type="hidden" name="next" value="{{next}}">
   
@@ -49,19 +51,15 @@
   
           </div>
   
-        </div>
-  
-      </div>
-      <!-- empty div -->
-      <div class="col-md-4">
-      </div>
+        <!-- empty div -->
+      <div class="col-md-4"></div>
     </div>
 
     <div class="row">
       <!-- Empty div -->
       <div class="col-md-4"></div>
       <div class="col-md-4">
-        <p class=""><a href="/signup">Or create an account...</a></p>
+        <p><a href="/signup">Or create an account...</a></p>
 
       </div>
       <div class="col-md-4"></div>

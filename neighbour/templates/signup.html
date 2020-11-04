@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container">
-    <h2 class="text-center">Sign up</h2>
+    <h2 style="text-decoration: underline;" class="text-center font-weight-bold mt-3">Create Your Neighbourhood Profile</h2>
 
   <div class="row">
     <!-- Empty div -->
@@ -24,7 +24,7 @@
                 {% endfor %}
               </p>
             {% endfor %}
-            
+
             {% for field in form %}
               <p>
                 {{ field.label_tag }}<br>
