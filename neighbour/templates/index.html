@@ -10,7 +10,8 @@
 
 {% block content %} 
 <div class="container-fluid">
-    <div class="row d-flex flex-wrap">
+    <div class="row">
+        
         <div class="col-md-3 col-12 left">
         <!-- Grid column -->
 
@@ -32,20 +33,20 @@
         <div class="col-md-6">
 
             <h2 class="mt-4 mb-3" style="color: black; font-weight:bold;"><i class="fas fa-map-marker-alt">   Nairobi, Langata</i></h2>
-
+            {% for items in post %}
             <div class="card">
                 <div class="card-header">
                     <div class="avatar">
-                        <img class="img-fluid" src="/static/img/user_square.jpg">
+                        <img class="img-fluid" src="{{ items.profile.avatar.url }}">
                     </div>
-                    <div class="name lead"><strong><span style="font-size: 20px;">  John Doe</span></strong> <br>  <small><span class="text-muted">Monday at 3:47 PM</span></small></div>
+                    <div class="name lead"><strong><span style="font-size: 20px;">  {{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</span></strong> <br>  <small><span class="text-muted">{{ items.date| timesince }} ago...</span></small></div>
                 </div>
                 <div class="card-content p-4">
-                    <h4 style="font-weight: bold;">A Nice Pic</h4>
-                    <p>What a nice photo i took yesterday!</p>
+                    <h4 style="font-weight: bold;">{{ items.title }}</h4>
+                    <p>{{ items.content }}</p>
                 </div>
                 <div class="card-content">
-                    <img src="http://lorempixel.com/1000/600/" style="width: 100%">
+                    <img src="{{ items.image.url }}" style="width: 100%">
                 </div>
                 
                 <div class="card-footer">
@@ -53,10 +54,11 @@
                     <a href="" class="btn btn-sm btn-outline-success">Reviews</a>
                 </div>
             </div>
-           
+            <br>
+            {% endfor %}
         </div>
 
-        <hr>
+        <hr>    
 
         <div class="col-md-3">
 
@@ -75,7 +77,7 @@
             <p class="lead"><span class="badge badge-pill badge-default">100</span></p>
 
         </div>
-
+          
     </div>
 </div>
 {% endblock %} 

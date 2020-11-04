@@ -21,7 +21,7 @@ class Neighbourhood(models.Model):
     )
     neighbourhood_name = models.CharField(max_length=120, choices=CHOICES)
     location = models.CharField(max_length=120, default='Nairobi')
-    population = models.AutoField(primary_key=True)
+    population = models.IntegerField(default=0)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_name', default=1)
     
     def __str__(self):
@@ -62,7 +62,7 @@ def update_user_profile(sender, instance, created, **kwargs):
     
 class Business(models.Model):
     name = models.CharField(max_length=150, null=True, blank=True)
-    description = models.TextField(max_length=1000, verbose_name='j_d')
+    description = models.TextField(max_length=1000, verbose_name='job_description')
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='business_user')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     business_email = models.EmailField(max_length=254)
