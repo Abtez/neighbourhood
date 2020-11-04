@@ -25,34 +25,18 @@
       <br>
         <h2>Congratulations..!!!</h2>
 
-        <p class="lead">Your Account has been successfully created !</p>
-        <p>Choose Your Neighbourhood to continue...</p>
+        <p class="lead font-weight-bold">Your Account has been successfully created !</p>
 
-        <div class="row">
-            <!-- Empty div -->
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <form method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                    {% for field in form %}
-                      <p>
-                        {{ field.label_tag }}<br>
-                        {{ field }}
-                        {% if field.help_text %}
-                          <small style="color: grey">{{ field.help_text }}</small>
-                        {% endif %}
-                        {% for error in field.errors %}
-                          <p style="color: red">{{ error }}</p>
-                        {% endfor %}
-                      </p>
-                    {% endfor %}
-        
-                    <button class="btn btn-outline-success" type="submit">Continue...</button>
-                  </form>
-            </div>
+        <p class="lead">Welcome to the neighbourhood app. Get news on your neighbourhood as they happen <br> 
+        upload and report emergencies happening around you.</p>
+
+        <p>Just a few steps left...</p>
+
+        <p>Cretae your profile and choose your neighbourhood to continue...</p>
+
+        <a class="btn btn-outline-success" href="{% url 'hood' request.user.username %}">Profile Page</a>
             <!-- empty div -->
-            <div class="col-md-3"></div>
-          </div>
+            <!-- <div class="col-md-3"></div> -->
     </div>
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- Bootstrap tooltips -->

@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
+from django.urls import reverse
+
 
 @login_required
 def index(request):
@@ -18,6 +20,9 @@ def index(request):
     post = Post.objects.filter(neighbourhood=hood).order_by('-date')
     
     return render(request, 'index.html', {'hood':hood, 'post':post})
+
+def welcome(request):
+    return render(request, 'welcome.html')
 
 def profile(request):
     return render(request, 'profile/profile.html')
@@ -50,26 +55,41 @@ def post_news(request):
     
     return render(request, 'post.html', {'form':PostForm})
 
+def neighbourhood(request, username):
+    user = request.user
+    neighbour = get_object_or_404(User, username=username)
+    if request.method == 'POST':
+        form = NeighbourhoodForm(request.POST)
+        prof = ProfileForm(request.POST, request.FILES)
+        if form.is_valid() and prof.is_valid():
+            hood = form.save()
+            my_prof = prof.save(commit=False)
+            my_prof.user = user
+            my_prof.neighbourhood = hood
+            profile.save()
+            return redirect('/')
+    else:
+        form = NeighbourhoodForm()
+    return render(request, 'hood.html', {'form': NeighbourhoodForm})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
-        form_n = NeighbourhoodForm(request.POST)
-        if form.is_valid() and form_n.is_valid():
-            hood = form_n.save()               
+        if form.is_valid():
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.bio = form.cleaned_data.get('bio')           
             user.profile.avatar = form.cleaned_data.get('avatar')
-            user.profile.neighbourhood = hood
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('/')
+            
+            # return HttpResponseRedirect(reverse('neighbourhood'))
+            return redirect('welcome')
     else:
         form = SignUpForm()
-        form_n = NeighbourhoodForm()
-    return render(request, 'signup.html', {'form': SignUpForm, 'form_n': NeighbourhoodForm})
+    return render(request, 'signup.html', {'form': SignUpForm})
 
 def signin(request):
     username = request.POST.get('username')

@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container">
-    <h2 style="text-decoration: underline;" class="text-center font-weight-bold mt-3">Create Your Neighbourhood Profile</h2>
+    <h2 style="text-decoration: underline;" class="text-center font-weight-bold mt-3">Create Your Profile</h2>
 
   <div class="row">
     <!-- Empty div -->
@@ -12,19 +12,6 @@
     <div class="col-md-6">
         <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-            {% for field in form_n %}
-              <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% if field.help_text %}
-                  <small style="color: grey">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                  <p style="color: red">{{ error }}</p>
-                {% endfor %}
-              </p>
-            {% endfor %}
-
             {% for field in form %}
               <p>
                 {{ field.label_tag }}<br>
