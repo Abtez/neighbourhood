@@ -11,7 +11,7 @@
   <div class="main-content">
    
     <!-- Header -->
-    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(https://raw.githack.com/creativetimofficial/argon-dashboard/master/assets/img/theme/profile-cover.jpg); background-size: cover; background-position: center top;">
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url('{{ profile.avatar.url }}'); background-size: cover; background-position: center top;">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
@@ -19,8 +19,9 @@
         <div class="row">
           <div class="col-lg-7 col-md-10">
             <h1 class="display-2 text-white">Hello {{ profile.user.username }}</h1>
-            <p class="text-white mt-0 mb-5">This is your profile page. You can see the occupant count in your location, update your profile photo or change your neighbourhood.</p>
-            <a href="#!" class="btn btn-info">Edit profile</a>
+            <p class="text-white mt-0 mb-5">This is your profile page. You can see the occupants count in your location, update your profile or change your neighbourhood.</p>
+            <a href="/" class="btn btn-info">Home</a>
+            <a href="#" class="btn btn-info">Your Neighbourhood</a>
           </div>
         </div>
       </div>
@@ -34,7 +35,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="https://demos.creative-tim.com/argon-dashboard/assets/img/theme/team-4.jpg" class="rounded-circle">
+                    <img src="{{ profile.avatar.url }}" class="rounded-circle">
                   </a>
                 </div>
               </div>
@@ -85,53 +86,29 @@
                 <div class="col-8">
                   <h3 class="mb-0">My Account</h3>
                 </div>
-                <div class="col-4 text-right">
-                  <a href="#" type="submit" class="btn btn-sm btn-primary">Update</a>
-                </div>
               </div>
             </div>
             <div class="card-body">
               <form method="POST" enctype="multipart/form-data">
-                <h6 class="heading-small text-muted mb-4">User information</h6>
-                <div class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
-
-                    {% csrf_token %} 
+          <h6 class="heading-small text-muted mb-4">Update User information</h6>
+          <div class="pl-lg-4">
+            <div class="row">
+              <div class="col-lg-6">
+              <div class="form-group focused">
+              {% csrf_token %} 
+              {{ backend_form }}
+              {% bootstrap_form form %} 
+              <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+              
+              </form>
+                <hr class="my-4">
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Change Neighbourhood</h6>
+                  <form action="">                
+                  {% csrf_token %} 
                   {{ backend_form }}
-                  {% bootstrap_form form %} 
-                  <button type="submit" class="btn btn-sm btn-outline-success">Submit</button>
-                    
-                    </form>
-                      <hr class="my-4">
-                      <!-- Address -->
-                      <h6 class="heading-small text-muted mb-4">Neighbourhood</h6>
-                      <div class="pl-lg-4">
-                        <div class="row">
-                          <div class="col-md-12">
-                      
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-city">City</label>
-                        <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="New York">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-group focused">
-                        <label class="form-control-label" for="input-country">Neighbourhood</label>
-                        <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      
-                    </div>
-                  </div>
-                </div>
-             
+                  {% bootstrap_form form_n %} 
+                  <button type="submit" class="btn btn-sm btn-primary">Submit</button>
               </form>
             </div>
           </div>

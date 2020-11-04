@@ -41,6 +41,11 @@ class EditProfileForm(forms.ModelForm):
         model = Profile
         exclude = ['user', 'neighbourhood']
         
+class EditHoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighbourhood
+        fields = ('neighbourhood_name',) 
+        
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
