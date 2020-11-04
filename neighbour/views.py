@@ -15,8 +15,11 @@ def index(request):
 def profile(request):
     return render(request, 'profile/profile.html')
 
-def business(request):
-    return render(request, 'business.html')
+def business(request, hood_id):
+    user = request.user
+    hood = get_object_or_404(Profile, neighbourhood=hood_id)
+    jobs = Business.objects.filter(neighbourhood=hood)
+    return render(request, 'business.html', {'hood':hood, 'jobs':jobs})
 
 def signup(request):
     if request.method == 'POST':

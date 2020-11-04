@@ -62,6 +62,7 @@ def update_user_profile(sender, instance, created, **kwargs):
     
 class Business(models.Model):
     name = models.CharField(max_length=150, null=True, blank=True)
+    description = models.TextField(max_length=1000, verbose_name='j_d')
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='business_user')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     business_email = models.EmailField(max_length=254)
