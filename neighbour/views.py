@@ -11,11 +11,14 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.urls import reverse
 
+def home(request):
+    user = Profile.objects.get(user= request.user)
+    return render(request, 'home.html', {'user':user})
 
 @login_required
-def index(request):
+def index(request, name):
     hood = get_object_or_404(Neighbourhood, neighbourhood_name=name)
-    post = Post.objects.filter(neighbourhood=hood).order_by('-date')
+    post = Post.objects.all().filter(neighbourhood=hood).order_by('-date')
     
     return render(request, 'index.html', {'hood':hood, 'post':post})
 
