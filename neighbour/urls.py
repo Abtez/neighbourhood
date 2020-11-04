@@ -9,7 +9,7 @@ urlpatterns=[
     path('logout/', views.logout, name='logout'),
     path('accounts/login', views.signin, name='login'),
     path('profile', views.profile, name='profile'),
-    path('business_list', views.business, name='business'),
+    path('business_list/<hood_id>', views.business, name='business'),
 ]
 
 if settings.DEBUG:

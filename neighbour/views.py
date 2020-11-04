@@ -10,14 +10,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 def index(request):
+    
     return render(request, 'index.html')
 
 def profile(request):
     return render(request, 'profile/profile.html')
 
 def business(request, hood_id):
-    user = request.user
-    hood = get_object_or_404(Profile, neighbourhood=hood_id)
+    hood = get_object_or_404(Business, neighbourhood=hood_id)
     jobs = Business.objects.filter(neighbourhood=hood)
     return render(request, 'business.html', {'hood':hood, 'jobs':jobs})
 

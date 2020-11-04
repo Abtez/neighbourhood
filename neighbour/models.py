@@ -107,6 +107,7 @@ class Post(models.Model):
     content = models.TextField(max_length=1000, verbose_name='Description')
     date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='your_profile')
+    neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.title
