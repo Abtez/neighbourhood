@@ -14,15 +14,10 @@ from django.urls import reverse
 
 @login_required
 def index(request):
-    hood_user = request.user
-    user = hood_user.profile.neighbourhood.pk
-    hood = get_object_or_404(Neighbourhood, pk=user)
+    hood = get_object_or_404(Neighbourhood, neighbourhood_name=name)
     post = Post.objects.filter(neighbourhood=hood).order_by('-date')
     
     return render(request, 'index.html', {'hood':hood, 'post':post})
-
-def welcome(request):
-    return render(request, 'welcome.html')
 
 def profile(request):
     return render(request, 'profile/profile.html')
@@ -66,26 +61,23 @@ def neighbourhood(request, username):
             my_prof = prof.save(commit=False)
             my_prof.user = user
             my_prof.neighbourhood = hood
-            profile.save()
+            my_prof.save()
             return redirect('/')
     else:
         form = NeighbourhoodForm()
-    return render(request, 'hood.html', {'form': NeighbourhoodForm})
+        prof = ProfileForm()
+    return render(request, 'hood.html', {'form': NeighbourhoodForm, 'prof':ProfileForm})
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            user.profile.bio = form.cleaned_data.get('bio')           
-            user.profile.avatar = form.cleaned_data.get('avatar')
-            user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
             
-            # return HttpResponseRedirect(reverse('neighbourhood'))
+            # return HttpResponseRedirect(reverse('welcome'))
             return redirect('welcome')
     else:
         form = SignUpForm()
@@ -105,3 +97,6 @@ def signin(request):
 def logout(request):
     django_logout(request)
     return  HttpResponseRedirect('/')
+
+def welcome(request):
+    return render(request, 'welcome.html')

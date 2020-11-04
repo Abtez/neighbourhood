@@ -10,14 +10,14 @@ import uuid
 
 class Neighbourhood(models.Model):
     CHOICES = (
-        ('1', 'Langata'),
-        ('2', 'Dagoretti'),
-        ('3', 'Embakasi'),
-        ('4', 'CBD'),
-        ('5', 'Kasarani'),
-        ('6', 'Kibra'),
-        ('7', 'Westland'),
-        ('8', 'Parkland'),
+        ('Langata', 'Langata'),
+        ('Dagoretti', 'Dagoretti'),
+        ('Embakasi', 'Embakasi'),
+        ('CBD', 'CBD'),
+        ('Kasarani', 'Kasarani'),
+        ('Kibra', 'Kibra'),
+        ('Westland', 'Westland'),
+        ('Parkland', 'Parkland'),
     )
     neighbourhood_name = models.CharField(max_length=120, choices=CHOICES)
     location = models.CharField(max_length=120, default='Nairobi')

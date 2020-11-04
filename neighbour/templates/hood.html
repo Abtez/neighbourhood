@@ -23,11 +23,8 @@
 
     <div class="container text-center">
       <br>
-        <h2>Congratulations..!!!</h2>
-
-        <p class="lead">Your Account has been successfully created !</p>
-        <p>Choose Your Neighbourhood to continue...</p>
-
+        <h2 style="text-decoration: underline;">Profile Page</h2>
+        <h3> Create Your Profile...</h3>
         <div class="row">
             <!-- Empty div -->
             <div class="col-md-3"></div>
@@ -35,6 +32,19 @@
                 <form method="post" enctype="multipart/form-data">
                   {% csrf_token %}
                     {% for field in form %}
+                      <p>
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                        {% if field.help_text %}
+                          <small style="color: grey">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                          <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                      </p>
+                    {% endfor %}
+
+                    {% for field in prof %}
                       <p>
                         {{ field.label_tag }}<br>
                         {{ field }}
