@@ -15,7 +15,7 @@ def index(request):
     hood_user = request.user
     user = hood_user.profile.neighbourhood.pk
     hood = get_object_or_404(Neighbourhood, pk=user)
-    post = Post.objects.filter(neighbourhood=hood)
+    post = Post.objects.filter(neighbourhood=hood).order_by('-date')
     
     return render(request, 'index.html', {'hood':hood, 'post':post})
 
@@ -60,7 +60,7 @@ def signup(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             user.profile.bio = form.cleaned_data.get('bio')           
             user.profile.avatar = form.cleaned_data.get('avatar')
-            user.neighbourhood = hood
+            user.profile.neighbourhood = hood
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
