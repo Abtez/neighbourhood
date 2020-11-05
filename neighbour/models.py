@@ -8,14 +8,31 @@ from django.dispatch import receiver
 from django.shortcuts import get_object_or_404
 import uuid
 
-class Neighbourhood(models.Model):    
-    neighbourhood_name = models.CharField(max_length=120)
+class Name(models.Model):
+    CHOICES = (
+        ('Langata', 'Langata'),
+        ('Dagoretti', 'Dagoretti'),
+        ('Embakasi', 'Embakasi'),
+        ('CBD', 'CBD'),
+        ('Kasarani', 'Kasarani'),
+        ('Kibra', 'Kibra'),
+        ('Westland', 'Westland'),
+        ('Parkland', 'Parkland'),
+    )
+    neighbourhood_name = models.CharField(max_length=120, choices=CHOICES)
+    
+    def __str__(self):
+        return self.neighbourhood_name
+    
+
+class Neighbourhood(models.Model): 
+    hood_name = models.ForeignKey(Name, on_delete=models.CASCADE, related_name='hood_name')  
     location = models.CharField(max_length=120, default='Nairobi')
     population = models.IntegerField(default=0)
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='admin_name', default=1)
     
     def __str__(self):
-        return self.neighbourhood_name
+        return self.hood_name.neighbourhood_name
     
     def save_image(self):
         self.save()
@@ -98,6 +115,8 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='your_profile')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
+    neighbour = models.ForeignKey(Name, on_delete=models.CASCADE, related_name='neighbour_name')  
+
     
     def __str__(self):
         return self.title

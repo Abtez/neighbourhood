@@ -16,13 +16,13 @@ def home(request):
     return render(request, 'home.html')
 
 @login_required
-def index(request, id):
+def index(request, name):    
+    hood = get_object_or_404(Name, neighbourhood_name__icontains=name)
+    post = Post.objects.filter(neighbour=hood).order_by('-date')
     
-    hood = Neighbourhood.objects.get(id=id)
-    post = Post.objects.filter(neighbourhood=hood).order_by('-date')
-    
-    return render(request, 'index.html', {'hood':hood, 'post':post})
+    return render(request, 'index.html', {'post':post})
 
+@login_required
 def profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = Profile.objects.get(user=user)
@@ -53,6 +53,7 @@ def profile(request, username):
     return render(request, 'profile/profile.html', {'profile':profile, 'post_count':post_count, 
                                                     'form':EditProfileForm, 'form_n':EditHoodForm})
 
+@login_required
 def business(request):
     hood_user = request.user
     user = hood_user.profile.neighbourhood.pk
@@ -81,6 +82,7 @@ def post_news(request):
     
     return render(request, 'post.html', {'form':PostForm})
 
+@login_required
 def neighbourhood(request, username):
     user = request.user
     neighbour = get_object_or_404(User, username=username)

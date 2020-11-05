@@ -26,42 +26,6 @@
             <a class="nav-link" href="#"><i class="fas fa-file">   Documents</i></a>
             </nav>
 
-        <!-- Grid column -->
-         </div>
-
-        <div class="col-md-6">
-
-            <h2 class="mt-4 mb-3" style="color: black; font-weight:bold;"><i class="fas fa-map-marker-alt">   Nairobi, Langata</i></h2>
-            <a class="btn btn-outline-dark" href="{% url 'post' %}">Add A Post</a>
-            {% for items in post %}
-            <div class="card">
-                <div class="card-header">
-                    <div class="avatar">
-                        <img class="img-fluid" src="{{ items.profile.avatar.url }}">
-                    </div>
-                    <div class="name lead"><strong><span style="font-size: 20px;">  {{ items.profile.user.first_name }} {{ items.profile.user.last_name }}</span></strong> <br>  <small><span class="text-muted">{{ items.date| timesince }} ago...</span></small></div>
-                </div>
-                <div class="card-content p-4">
-                    <h4 style="font-weight: bold;">{{ items.title }}</h4>
-                    <p>{{ items.content }}</p>
-                </div>
-                <div class="card-content">
-                    <img src="{{ items.image.url }}" style="width: 100%">
-                </div>
-                
-                <div class="card-footer">
-                    <a href="" class="btn btn-sm btn-outline-success">Reply</a>
-                    <a href="" class="btn btn-sm btn-outline-success">Reviews</a>
-                </div>
-            </div>
-            <br>
-            {% endfor %}
-        </div>
-
-        <hr>    
-
-        <div class="col-md-3">
-
             <h2 style="color: #4A7023;" class="font-weight-bold py-4">Contact Informations</h2>
             <h4>Health Department</h4>
             <p class="lead"><span class="badge badge-pill badge-success">111000</span></p>
@@ -76,6 +40,36 @@
             <p class="lead"><span class="badge badge-pill badge-default">111</span></p>
             <p class="lead"><span class="badge badge-pill badge-default">100</span></p>
 
+         </div>
+
+        <div class="col-md-6 ml-5">
+
+            <h2 class="mt-4 mb-3" style="color: black; font-weight:bold;"><i class="fas fa-map-marker-alt">   Nairobi, Langata</i></h2>
+            <a class="btn btn-outline-dark mb-4" href="{% url 'post' %}">Add A Post</a>
+            {% for post in post %}
+              
+            <div class="card">
+                <div class="card-header">
+                    <div class="avatar">
+                        <img class="img-fluid" src="{{ post.profile.avatar.url }}">
+                    </div>
+                    <div class="name lead"><strong><span style="font-size: 20px;">  {{ post.profile.user.first_name }} {{ post.profile.user.last_name }}</span></strong> <br>  <small><span class="text-muted">{{ post.date| timesince }} ago...</span></small></div>
+                </div>
+                <div class="card-content p-4">
+                    <h4 style="font-weight: bold;">{{ post.title }}</h4>
+                    <p>{{ post.content }}</p>
+                </div>
+                <div class="card-content">
+                    <img src="{{ post.image.url }}" style="width: 100%">
+                </div>
+                
+                <div class="card-footer">
+                    <a href="" class="btn btn-sm btn-outline-success">Reply</a>
+                    <a href="" class="btn btn-sm btn-outline-success">Reviews</a>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
         </div>
           
     </div>

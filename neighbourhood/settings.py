@@ -71,8 +71,6 @@ INSTALLED_APPS = [
     'cloudinary',
     'rest_framework',
     'bootstrap4',
-    'phone_field',
-    'django_filters',
 ]
 
 MIDDLEWARE = [

@@ -4,17 +4,6 @@ from django.contrib.auth.models import User
 from .models import *
 from django.shortcuts import get_object_or_404
 
-CHOICES = (
-        ('Langata', 'Langata'),
-        ('Dagoretti', 'Dagoretti'),
-        ('Embakasi', 'Embakasi'),
-        ('CBD', 'CBD'),
-        ('Kasarani', 'Kasarani'),
-        ('Kibra', 'Kibra'),
-        ('Westland', 'Westland'),
-        ('Parkland', 'Parkland'),
-    )
-
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
@@ -25,11 +14,10 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2') 
         
 class NeighbourhoodForm(forms.ModelForm):
-    neighbourhood_name = forms.ChoiceField(choices=CHOICES, required=True)
     
     class Meta:
         model = Neighbourhood
-        fields = ('neighbourhood_name',) 
+        fields = ('hood_name',) 
         
 class ProfileForm(forms.ModelForm):
     class Meta:
@@ -44,7 +32,7 @@ class EditProfileForm(forms.ModelForm):
 class EditHoodForm(forms.ModelForm):
     class Meta:
         model = Neighbourhood
-        fields = ('neighbourhood_name',) 
+        fields = ('hood_name',) 
         
 class PostForm(forms.ModelForm):
     class Meta:
