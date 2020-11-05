@@ -12,7 +12,7 @@ This is an application that allows a user to register at a neighbourhood of a sp
 
 ## Getting Files
 
-Click this [link]() to access my github repository.
+Click this [link](https://github.com/Abzed/neighbourhood) to access my github repository.
 
 On the top panel you will see a green button with a download icon and the word "CODE" written next to it. Click it to download the project zip file.​
 
@@ -34,7 +34,7 @@ Open the folder location on terminal and use the following command to run app:
 
 ## Live Link
 
-Or you can access the web application directly via this [LINK.]()
+Or you can access the web application directly via this [LINK.](https://neighbourfy.herokuapp.com/)
 
 ******
 
