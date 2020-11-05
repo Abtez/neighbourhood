@@ -6,42 +6,13 @@ import datetime as dt
 
 class ProfileTestCase(TestCase):
     def setUp(self):
+        hood_name = Name(neighbourhood_name='CBD')
         user = User.objects.create_user(username='testusereres', password='12345')
+        neighbourhood = Neighbourhood(hood_name=hood_name, location='Nai', populatio=10, admin=user)
         
-        self.profile = Profile(user=user, location='Kenya', bio='me..me', avatar='image.jpg')
+        self.profile = Profile(user=user, bio='me..me', avatar='image.jpg', neighbourhood=neighbourhood)
                 
     def test_instance(self):
         self.assertTrue(isinstance(self.profile, Profile))
         
-        
-# class CommentTestCase(TestCase):
-#     def setUp(self):
-#         user = User.objects.create_user(username='testuser', password='12345')
-#         screenshots = Screenshot(image_1='image.jpg', image_2='image.jpg', image_3='image.jpg')
-#         profile = Profile(user=user, location='Kenya', bio='me..me', avatar='image.jpg')
-#         post = Project(user=user, image='image.jpg', project_name='Simba', description='king', screenshots=screenshots, date='2012-09-04 06:00:00.000000-08:00', profile=profile, like=10)
-        
-#         self.comment = Comment(comment='its testing!!!', profile=profile, date='2012-09-04 06:00:00.000000-08:00', project=post)
-#         # self.comment = Comment(comment='its testing!!!')
-        
-#     def test_instance(self):
-#         self.assertTrue(isinstance(self.comment,Comment))
     
-class TestProject(TestCase):
-    def setUp(self):
-        user = User.objects.create_user(username='testuser', password='12345')
-        screenshots = Screenshot(image_1='image.jpg', image_2='image.jpg', image_3='image.jpg')
-        profile = Profile(user=user, location='Kenya', bio='me..me', avatar='image.jpg')
-        self.post_test = Project(user=user, image='image.jpg', project_name='Simba', description='king', screenshots=screenshots, date='2012-09-04 06:00:00.000000-08:00', profile=profile, like=10)
-
-    def test_instance(self):
-        self.assertTrue(isinstance(self.post_test, Project))
-
-    def test_delete_image(self):
-        self.post_test.delete_image()
-        image = Project.objects.all()
-        self.assertTrue(len(image) == 0)
-
-    def tearDown(self):
-        Project.objects.all().delete()
-      
