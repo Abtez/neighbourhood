@@ -22,6 +22,13 @@ class NameTestCase(TestCase):
     def test_instance(self):
         self.assertTrue(isinstance(self.hood, Name))
         
-
+class NeighbourhoodTestCase(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(username='testusereres', password='12345')
+        hood_name = Name(neighbourhood_name='CBD')
+        self.neighbour = Neighbourhood(hood_name=hood_name, location='Nai', population=10, admin=user)
+    
+    def test_instance(self):
+        self.assertTrue(isinstance(self.neighbour, Neighbourhood))
         
     
