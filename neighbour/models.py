@@ -116,7 +116,11 @@ class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='your_profile')
     neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE)
     neighbour = models.ForeignKey(Name, on_delete=models.CASCADE, related_name='neighbour_name')  
-
     
     def __str__(self):
         return self.title
+    
+    @classmethod
+    def filter_by_category(cls, location):
+        post = Post.objects.filter(category__name=category).all()
+        return post

@@ -10,10 +10,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout as django_logout
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
+
 
 @login_required
 def home(request):
     return render(request, 'home.html')
+
+def view_by_category(request,category):
+    try:
+        post = Post.filter_by_category(category)
+        message = category
+    except ObjectDoesNotExist:
+        raise Http404()
+    return render(request, 'location.html',{"post": post, 'message':category})
 
 @login_required
 def index(request, name):    
