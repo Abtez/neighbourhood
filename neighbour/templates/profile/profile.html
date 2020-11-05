@@ -21,7 +21,7 @@
             <h1 class="display-2 text-white">Hello {{ profile.user.username }}</h1>
             <p class="text-white mt-0 mb-5">This is your profile page. You can see the occupants count in your location, update your profile or change your neighbourhood.</p>
             <a href="/" class="btn btn-info">Home</a>
-            <a href="#" class="btn btn-info">Your Neighbourhood</a>
+            <a href="{% url 'index' request.user.profile.neighbourhood.hood_name %}" class="btn btn-info">Your Neighbourhood</a>
           </div>
         </div>
       </div>
@@ -44,10 +44,10 @@
               <div class="d-flex justify-content-between">
               </div>
             </div>
-            <div class="card-body pt-0 pt-md-1">
+            <div class="card-body pt-0 pt-md-4">
               <div class="row">
                 <div class="col">
-                  <div class="card-profile-stats d-flex justify-content-center mt-md-1">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                     <div>
                       <span class="heading">{{ post_count }}</span>
                       <span class="description">Posts</span>
@@ -65,7 +65,7 @@
                   {{ profile.user.first_name }} {{ profile.user.last_name }}
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>{{ profile.neighbourhood.location }}, {{ profile.neighbourhood.neighbourhood_name }}
+                  <i class="ni location_pin mr-2"></i>{{ profile.neighbourhood.location }}, {{ profile.neighbourhood.hood_name.neighbourhood_name }}
                 </div>
                 <!-- <div class="h5 mt-4">
                   <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer

@@ -37,7 +37,7 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     profile = Profile.objects.get(user=user)
     form = EditProfileForm(instance=profile)
-    form_ = EditHoodForm(instance=profile)
+    form_ = EditHoodForm(instance=profile.neighbourhood.hood_name)
     post_count = Post.objects.filter(profile=profile).count()
     
     if request.method == "POST":
@@ -52,13 +52,13 @@ def profile(request, username):
             form = EditProfileForm(instance=profile)
             
     if request.method == "POST":
-        form_n = EditHoodForm(request.POST, instance=profile)
+        form_n = EditHoodForm(request.POST, instance=profile.neighbourhood.hood_name)
         if form_n.is_valid():
             data = form_n.save()
             data.save()
             return HttpResponseRedirect(reverse('profile', args=[username]))
         else:
-            form_n = EditHoodForm(instance=profile)
+            form_n = EditHoodForm(instance=profile.neighbourhood.hood_name)
         
     return render(request, 'profile/profile.html', {'profile':profile, 'post_count':post_count, 
                                                     'form':EditProfileForm, 'form_n':EditHoodForm})
