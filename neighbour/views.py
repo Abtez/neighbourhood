@@ -86,7 +86,7 @@ def post_news(request):
             data.profile = user
             data.neighbourhood = hood
             data.save()
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             return False
     
